@@ -30,24 +30,6 @@ class _CartPageState extends State<CartPage> {
               ),
               SizedBox(height: 40),
               CartProduct(
-                imagePath: 'assets/icons/whiteHeadphone.png',
-                title: 'SONY Premium\nWireless Headphones',
-                subtitle: 'Model: WH-1000XM4, Black',
-                price: 19.99,
-                onPressed: () {
-                  // Handle button press
-                },
-              ),
-              CartProduct(
-                imagePath: 'assets/icons/laptop.png',
-                title: 'Lenovo Laptop',
-                subtitle: 'Model: WH-1000XM4, Black',
-                price: 19.99,
-                onPressed: () {
-                  // Handle button press
-                },
-              ),
-              CartProduct(
                 imagePath: 'assets/img/black_headPhone.png',
                 title: 'SONY Premium\nWireless Headphones',
                 subtitle: 'Model: WH-1000XM4, Black',

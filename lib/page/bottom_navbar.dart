@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:online_shoping_app/page/material/color.dart';
 import 'cart_page.dart';
 import 'home_page.dart';
+import 'model/product.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -12,13 +13,25 @@ class BottomNavBar extends StatefulWidget {
 
 class _BottomNavBarState extends State<BottomNavBar> {
   int _currentIndex = 0;
+  List<Product> _selectedProducts = [];
 
-  final List<Widget> _pages = [
-    // Define your pages here
-    HomePage(),
-    CartPage(),
-    // Add more pages as needed
-  ];
+  late List<Widget> _pages;
+  @override
+  void initState() {
+    super.initState();
+
+    _pages = [
+      HomePage(
+        onAddToCart: (Product product) {
+          setState(() {
+            _selectedProducts.add(product);
+          });
+        },
+      ),
+      CartPage(),
+    ];
+  }
+
 
   @override
   Widget build(BuildContext context) {

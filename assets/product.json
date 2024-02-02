@@ -1,0 +1,28 @@
+{
+  "products": [
+    {
+      "image_path": "path/to/image1.jpg",
+      "price": 29.99,
+      "title": "Prsdf",
+      "subtitle": "Descrisdfsdfct 1"
+    },
+    {
+      "image_path": "path/to/image2.jpg",
+      "price": 39.99,
+      "title": "Product 2",
+      "subtitle": "Description for Product 2"
+    },
+    {
+      "image_path": "path/to/image3.jpg",
+      "price": 49.99,
+      "title": "Product 3",
+      "subtitle": "Description for Product 3"
+    },
+    {
+      "image_path": "path/to/image4.jpg",
+      "price": 19.99,
+      "title": "Product 4",
+      "subtitle": "Description for Product 4"
+    }
+  ]
+}
