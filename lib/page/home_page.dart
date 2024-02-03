@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:online_shoping_app/page/material/color.dart';
+import 'package:online_shoping_app/page/widget/elevated_button.dart';
 import 'model/product.dart';
 
 class HomePage extends StatefulWidget {
@@ -34,17 +35,61 @@ class _HomePageState extends State<HomePage> {
       title: 'Samsung Led Tv Dual LED,Q-Symphony',
       subtitle: 'Q60C Series Quantum HDR,',
     ),
+    Product(
+      imagePath: 'assets/img/black_headPhone.png',
+      price: 249.50,
+      title: 'SONY Premium  Headphones',
+      subtitle: 'Model: WH-1000XM4, Black',
+    ),
+    Product(
+      imagePath: 'assets/img/white headphone.png',
+      price: 129.00,
+      title: 'SONY Premium Wireless Headphones',
+      subtitle: 'Model: WH-1000XM4, Black',
+    ),
+    Product(
+      imagePath: 'assets/img/laptop.png',
+      price: 749.99,
+      title: 'HP OMEN - 16.1" 144Hz Full HD ',
+      subtitle: 'Gaming Laptop',
+    ),
+    Product(
+      imagePath: 'assets/img/samtv.png',
+      price: 497.99,
+      title: 'Samsung Led Tv Dual LED,Q-Symphony',
+      subtitle: 'Q60C Series Quantum HDR,',
+    ),
     // ... other products
   ];
-
+  var size, height, width;
   @override
   Widget build(BuildContext context) {
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Product List'),
-      ),
       body: Column(
         children: [
+          Container(
+            padding: EdgeInsets.only(left: 10, right: 10),
+            margin: EdgeInsets.only(top: 50),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  height: 60,
+                  child: Text(
+                    'Hello John',
+                    style: TextStyle(
+                      fontSize: 40,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+                CustomElevatedButton(buttonText: 'Logout', onPressed: (){}),
+              ],
+            ),
+          ),
           Expanded(
             child: Container(
               margin: EdgeInsets.only(left: 20, right: 20),
