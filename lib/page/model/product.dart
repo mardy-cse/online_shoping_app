@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 class Product {
   Product({
       this.imagePath, 
