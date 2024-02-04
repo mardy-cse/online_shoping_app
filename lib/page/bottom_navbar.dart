@@ -21,8 +21,8 @@ class _BottomNavBarState extends State<BottomNavBar> {
     super.initState();
 
     _pages = [
-      HomePage(),
-      CartPage(),
+      HomePage(onAddToCart: _handleAddToCart),
+      CartPage(selectedProducts: _selectedProducts, product: null,),
     ];
   }
 
@@ -53,4 +53,11 @@ class _BottomNavBarState extends State<BottomNavBar> {
       ),
     );
   }
+
+  void _handleAddToCart(Product product) {
+    setState(() {
+      _selectedProducts.add(product);
+    });
+  }
+
 }

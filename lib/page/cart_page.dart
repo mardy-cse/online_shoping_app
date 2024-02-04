@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:online_shoping_app/page/widget/cart_items.dart';
+import 'model/product.dart';
 
 class CartPage extends StatefulWidget {
-  const CartPage({Key? key}) : super(key: key);
+  final List<Product> selectedProducts;
+
+  CartPage({required this.selectedProducts, required product});
 
   @override
   State<CartPage> createState() => _CartPageState();
@@ -11,6 +14,9 @@ class CartPage extends StatefulWidget {
 class _CartPageState extends State<CartPage> {
   @override
   Widget build(BuildContext context) {
+    double totalPrice = widget.selectedProducts.fold(
+        0, (previousValue, product) =>
+    previousValue + double.parse(product.price ?? '0.0') * product.quantity);
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
@@ -28,49 +34,35 @@ class _CartPageState extends State<CartPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 40),
-              CartProduct(
-                imagePath: 'assets/img/black_headPhone.png',
-                title: 'SONY Premium\nWireless Headphones',
-                subtitle: 'Model: WH-1000XM4, Black',
-                price: 19.99,
-                onPressed: () {
-                  // Handle button press
+              SizedBox(height: 20),
+              // Display the selected products using CartItems widget
+              ListView.builder(
+                shrinkWrap: true,
+                physics: NeverScrollableScrollPhysics(),
+                itemCount: widget.selectedProducts.length,
+                itemBuilder: (context, index) {
+                  return CartProduct(
+                    product: widget.selectedProducts[index],
+                    onRemove: () {
+                      // Handle removal of the product from the list
+                      setState(() {
+                        widget.selectedProducts.removeAt(index);
+                      });
+                    },
+                  );
                 },
               ),
-              CartProduct(
-                imagePath: 'assets/img/white headphone.png',
-                title: 'SONY Premium\nWireless Headphones',
-                subtitle: 'Model: WH-1000XM4, Black',
-                price: 19.99,
-                onPressed: () {
-                  // Handle button press
-                },
-              ),
-              CartProduct(
-                imagePath: 'assets/img/image 12 (1).png',
-                title: 'SONY Premium\nWireless Headphones',
-                subtitle: 'Model: WH-1000XM4, Black',
-                price: 19.99,
-                onPressed: () {
-                  // Handle button press
-                },
-              ),
-              Container(
-
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text('Total amount: ', style: TextStyle(
-                      color: Colors.grey,
-                    ),),
-                    Text('1,726.98\$', style: TextStyle(
-                      fontSize: 14,
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  Text('Total Price: \$${totalPrice.toStringAsFixed(2)}',
+                    style: TextStyle(
+                      fontSize: 18,
                       fontWeight: FontWeight.bold,
-                    ),),
-                  ],
-                ),
-              ),
+                    ),
+                  ),
+                ],
+              )
             ],
           ),
         ),

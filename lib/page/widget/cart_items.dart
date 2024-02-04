@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
+import '../model/product.dart';
 import 'increment_decrement_button.dart';
 
-class CartProduct extends StatelessWidget {
-  final String imagePath;
-  final String title;
-  final String subtitle;
-  final double price;
-  final VoidCallback onPressed;
+class CartProduct extends StatefulWidget {
+  final Product product;
+  final VoidCallback onRemove;
+  CartProduct({required this.product, required this.onRemove});
 
-  CartProduct({
-    required this.imagePath,
-    required this.title,
-    required this.subtitle,
-    required this.price,
-    required this.onPressed,
-  });
+  @override
+  _CartProductState createState() => _CartProductState();
+}
+
+class _CartProductState extends State<CartProduct> {
+  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +35,8 @@ class CartProduct extends StatelessWidget {
                     color: Color(0xffF5F5F5),
                     borderRadius: BorderRadius.circular(10),
                     image: DecorationImage(
-                      image: AssetImage(imagePath),
+                      image: AssetImage(widget.product.imagePath ?? 'assets/placeholder_image.png'),
+                      // Use a placeholder image if imagePath is null
                     ),
                   ),
                 ),
@@ -50,16 +49,16 @@ class CartProduct extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '\$$price',
+                        '\$${(double.parse(widget.product.price ?? '0.0') * quantity).toStringAsFixed(2)}',
                         style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                       Text(
-                        title,
+                        widget.product.title ?? 'No title',
                         style: TextStyle(fontSize: 14),
                       ),
                       SizedBox(height: 5),
                       Text(
-                        subtitle,
+                        widget.product.subtitle ?? 'No subtitle',
                         style: TextStyle(fontSize: 9, color: Colors.grey),
                       ),
                     ],
@@ -67,15 +66,43 @@ class CartProduct extends StatelessWidget {
                 ),
               ),
               Container(
-                  margin: EdgeInsets.only(top: 45),
-                  child: QuantitySelector()),
+                margin: EdgeInsets.only(top: 45),
+                child: Row(
+                  children: [
+                    IncrementDecrementButton(
+                      icon: Icons.remove,
+                      onPressed: () {
+                        if (quantity > 1) {
+                          setState(() {
+                            quantity--;
+                          });
+                        }else {
+                          // Call the onRemove callback when quantity is 1 or less
+                          widget.onRemove();
+                        }
+                      },
+                    ),
+                    Text(
+                      '$quantity',
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
+
+                    IncrementDecrementButton(
+                      icon: Icons.add,
+                      onPressed: () {
+                        setState(() {
+                          quantity++;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
-          SizedBox(height: 15,),
-
+          SizedBox(height: 15),
         ],
       ),
     );
-
   }
 }

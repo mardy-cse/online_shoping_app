@@ -8,7 +8,6 @@ void main() async{
 }
 
 
-//void main()=>runApp(OnlineShopingApp());
 class OnlineShopingApp extends StatelessWidget {
   const OnlineShopingApp({super.key});
 

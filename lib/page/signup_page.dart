@@ -1,11 +1,14 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:online_shoping_app/page/home_page.dart';
 import 'package:online_shoping_app/page/login_page.dart';
 import 'package:online_shoping_app/page/material/color.dart';
 import 'package:online_shoping_app/page/widget/elevated_button.dart';
 import 'package:online_shoping_app/page/widget/footer.dart';
 import 'package:online_shoping_app/page/widget/form_field.dart';
+
+import 'bottom_navbar.dart';
 
 class SignUpScreen extends StatefulWidget {
   @override
@@ -152,7 +155,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             print('User registration successful');
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => LoginScreen()),
+                              MaterialPageRoute(builder: (context) => BottomNavBar()),
                             );
                           }
                         } on FirebaseAuthException catch (e) {

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:online_shoping_app/page/signup_page.dart';
+import 'package:online_shoping_app/page/page_route.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   State<SplashScreen> createState() => _SplashScreenState();
@@ -13,7 +14,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: 5), () {
       Navigator.pushReplacement(context, 
-      MaterialPageRoute(builder: (context)=>SignUpScreen())
+      MaterialPageRoute(builder: (context)=>PageRouting()),
       );
     });
   }
