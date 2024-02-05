@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:online_shoping_app/page/login_page.dart';
@@ -15,6 +16,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  String username = " ";
+  String useremail = "";
+  @override
+  void initState() {
+    super.initState();
+    fetchUsername();
+  }
+
   final _auth = FirebaseAuth.instance;
   List<Product> productList = [
     Product(
@@ -73,7 +82,6 @@ class _HomePageState extends State<HomePage> {
       title: 'Samsung Led Tv Dual LED,Q-Symphony',
       subtitle: 'Q60C Series Quantum HDR,',
     ),
-    // ... other products
   ];
   var size, height, width;
   @override
@@ -91,13 +99,24 @@ class _HomePageState extends State<HomePage> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  height: 60,
-                  child: Text(
-                    'Hello John',
-                    style: TextStyle(
-                      fontSize: 30,
-                      fontWeight: FontWeight.bold,
-                    ),
+                  height: 70,
+                  child: Column(
+                    children: [
+                      Text(
+                        'Hello $username',
+                        style: TextStyle(
+                          fontSize: 30,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      Text(
+                        '$useremail',
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
                 Container(
@@ -223,6 +242,26 @@ class _HomePageState extends State<HomePage> {
         );
         cartList.add(clonedProduct);
       });
+    }
+  }
+
+
+  Future<void> fetchUsername() async {
+    try {
+      String userEmail = _auth.currentUser?.email ?? '';
+      DocumentSnapshot userDoc = await FirebaseFirestore.instance
+          .collection('Users')
+          .doc(userEmail)
+          .get();
+
+      if (userDoc.exists) {
+        setState(() {
+          username = userDoc['username'];
+          useremail = userDoc['useremail'];
+        });
+      }
+    } catch (e) {
+      print('Error fetching username: $e');
     }
   }
 

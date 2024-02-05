@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:online_shoping_app/page/home_page.dart';
 import 'package:online_shoping_app/page/login_page.dart';
 import 'package:online_shoping_app/page/material/color.dart';
 import 'package:online_shoping_app/page/widget/elevated_button.dart';
@@ -150,6 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 .set({
                               'username': nameController.text,
                               'lastname': 'Empty..',
+                              'useremail':emailController.text,
                               // Add other user data if needed
                             });
                             print('User registration successful');

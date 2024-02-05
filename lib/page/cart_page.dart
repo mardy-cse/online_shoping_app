@@ -49,6 +49,12 @@ class _CartPageState extends State<CartPage> {
                         widget.selectedProducts.removeAt(index);
                       });
                     },
+                    onChange: (){
+                      print("cart item changed");
+                      setState(() {
+
+                      });
+                    }
                   );
                 },
               ),

@@ -5,14 +5,14 @@ import 'increment_decrement_button.dart';
 class CartProduct extends StatefulWidget {
   final Product product;
   final VoidCallback onRemove;
-  CartProduct({required this.product, required this.onRemove});
+  final VoidCallback onChange;
+  CartProduct({required this.product, required this.onRemove, required this.onChange});
 
   @override
   _CartProductState createState() => _CartProductState();
 }
 
 class _CartProductState extends State<CartProduct> {
-  int quantity = 1;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +49,7 @@ class _CartProductState extends State<CartProduct> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        '\$${(double.parse(widget.product.price ?? '0.0') * quantity).toStringAsFixed(2)}',
+                        '\$${(double.parse(widget.product.price ?? '0.0') * widget.product.quantity).toStringAsFixed(2)}',
                         style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                       ),
                       Text(
@@ -72,10 +72,11 @@ class _CartProductState extends State<CartProduct> {
                     IncrementDecrementButton(
                       icon: Icons.remove,
                       onPressed: () {
-                        if (quantity > 1) {
+                        if (widget.product.quantity > 1) {
                           setState(() {
-                            quantity--;
+                            widget.product.quantity--;
                           });
+                          widget.onChange();
                         }else {
                           // Call the onRemove callback when quantity is 1 or less
                           widget.onRemove();
@@ -83,7 +84,7 @@ class _CartProductState extends State<CartProduct> {
                       },
                     ),
                     Text(
-                      '$quantity',
+                      '${widget.product.quantity}',
                       style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     ),
 
@@ -91,8 +92,9 @@ class _CartProductState extends State<CartProduct> {
                       icon: Icons.add,
                       onPressed: () {
                         setState(() {
-                          quantity++;
+                          widget.product.quantity++;
                         });
+                        widget.onChange();
                       },
                     ),
                   ],
